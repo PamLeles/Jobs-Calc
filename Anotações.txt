@@ -4,4 +4,5 @@ instalando ejs
 express - biblioteca para servidor
 route - rota para o servidor
 
-desafio, reaproveitamento de codigo 
+- desafio, reaproveitamento de codigo 
+- metodo, POST "criar um recurso"
