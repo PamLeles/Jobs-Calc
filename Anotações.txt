@@ -1,0 +1,5 @@
+instalando ejs 
+//template engine
+
+express - biblioteca para servidor
+route - rota para o servidor
