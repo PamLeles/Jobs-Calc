@@ -14,13 +14,18 @@ const profile = {
     "vacation-per-year": 4
 }
 
+const jobs = []
+
 //req,res
 //render - renderizar
 routes.get('/', (req, res) => res.render( views +"index"));
 routes.get('/job', (req, res) => res.render( views +"job"));
 routes.post('/job', (req, res) => {
-    console.log(req.body)
-});
+    //req.body = { name:"as", daily-hours:"3", 'total-hours':"3"}
+    //req.body esta redirecionando os dados da pagina jobs para pag index
+    jobs.push(req.body)
+    return res.redirect('/')
+ });
 routes.get('/jobedit', (req, res) => res.render( views +"job-edit"));
 routes.get('/profile', (req, res) => res.render( views +"profile", { profile: profile})); //enviando objeto
 
