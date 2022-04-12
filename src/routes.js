@@ -11,7 +11,8 @@ const profile = {
     "monthly-budget": 3000,
     "days-per-week": 5,
     "hours-per-day": 5,
-    "vacation-per-year": 4
+    "vacation-per-year": 4,
+    "value-hour": 75 
 }
 
 const jobs = [
@@ -19,7 +20,7 @@ const jobs = [
         id: 1,
         name: 'Pizzaria Guloso',
         "daily-hours": 2,
-        "total-hours": 60,
+        "total-hours": 2,
         created_at: Date.now()
 
     },
@@ -40,7 +41,7 @@ function remainingDays(job){
 
      const createdDate = new Date(job.created_at);
      const dueDay = createdDate.getDate() + Number(remainingDays);
-     const dueDate = createdDate.setDate(dueDay);
+     const dueDateInMs = createdDate.setDate(dueDay);
      
      const timeDiffInMs = dueDateInMs - Date.now();
      // Transformas milisegundos em dias
@@ -64,11 +65,12 @@ routes.get('/', (req, res) => {
         return { //espalhamento
             ...job,
             remaining,
-            status
+            status,
+            budget: profile["value-hour"] * job["total-hours"]                        
         }
     })
 
-    return res.render(views + "index", { jobs })
+    return res.render(views + "index", { jobs: updatedJobs })
 });
 
 
