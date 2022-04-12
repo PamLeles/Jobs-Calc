@@ -5,16 +5,23 @@ const routes = express.Router();
 const views = __dirname + "/views/"
 
 
-const profile = {
-    name: "Pâmela ",
-    avatar: "https://avatars.githubusercontent.com/u/98628912?v=4",
-    "monthly-budget": 3000,
-    "days-per-week": 5,
-    "hours-per-day": 5,
-    "vacation-per-year": 4,
-    "value-hour": 75
+const Profile = {
+    data:{
+        name: "Pâmela ",
+        avatar: "https://avatars.githubusercontent.com/u/98628912?v=4",
+        "monthly-budget": 3000,
+        "days-per-week": 5,
+        "hours-per-day": 5,
+        "vacation-per-year": 4,
+        "value-hour": 75
+    },
+    controllers:{
+        index(){
+            return res.render(views + "profile", { profile: Profile.data });
+        },
+    },
+    
 }
-
 const job = {
     //obj
     data: [
@@ -99,8 +106,6 @@ const job = {
     },
 }
 
-const jobs =
-
 
     //req,res
     //render - renderizar
@@ -108,7 +113,7 @@ routes.get('/', job.controllers.index);
 routes.get('/job',job.controllers.create);
 routes.post('/job', job.controllers.save);
 routes.get('/jobedit', (req, res) => res.render(views + "job-edit"));
-routes.get('/profile', (req, res) => res.render(views + "profile", { profile: profile })); //enviando objeto
+routes.get('/profile',Profile.controllers.index); //enviando objeto
 
 
 module.exports = routes; 
