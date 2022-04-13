@@ -6,7 +6,7 @@ const views = __dirname + "/views/"
 
 
 const Profile = {
-    data:{
+    data: {
         name: "Pâmela ",
         avatar: "https://avatars.githubusercontent.com/u/98628912?v=4",
         "monthly-budget": 3000,
@@ -15,14 +15,47 @@ const Profile = {
         "vacation-per-year": 4,
         "value-hour": 75
     },
-    controllers:{
-        index(){
+    controllers: {
+        index(req, res) {
             return res.render(views + "profile", { profile: Profile.data });
         },
+
+        update(req, res) {
+            //req.body para pegar oos dados
+            const data = req.body;
+
+            //definir quantas semanas tem no ano
+            const weeksPerYear = 52;
+
+            //remover as semanas de ferias do ano, p/ pegaar quantas semanas tem 1 mês
+            const weeksPerMonth = (weeksPerYear - data["vacation-per-day"]) / 12;
+
+            //total de horas trabalhdas na semana
+            const weekTotalHours = data["hours-per-day"] * data["days-per-week"];
+
+            // total de horas trabalhadas no mes
+            const monthlyTotalHours = weekTotalHours * weeksPerMonth;
+
+            // qual o valor da hora
+            data["value-hour"] = data["monthly-budget"] / monthlyTotalHours;
+
+            Profile.data = {
+                //espalhamento
+                ...Profile.data,
+                ...req.body,
+                "value-hour": valueHour
+            };
+
+            return res.redirect('/profile');
+
+        }
     },
-    
+
+
+
 }
-const job = {
+
+const Job = {
     //obj
     data: [
 
@@ -40,24 +73,21 @@ const job = {
             "daily-hours": 3,
             "total-hours": 47,
             created_at: Date.now()
-
         }
-
-
     ],
 
     controllers: {
         index(req, res) {
-            const updatedJobs = job.data.map((job) => {
+            const updatedJobs = Job.data.map((job) => {
                 //ajustes no job
-                const remaining = job.services.remainingDays(job);
+                const remaining = Job.services.remainingDays(job);
                 const status = remaining <= 0 ? 'done' : 'progress'; //ternario
 
                 return { //espalhamento
                     ...job,
                     remaining,
                     status,
-                    budget: profile["value-hour"] * job["total-hours"]
+                    budget: Profile.data["value-hour"] * job["total-hours"]
                 }
             })
 
@@ -65,15 +95,15 @@ const job = {
 
 
         },
-        create(req,res){
+        create(req, res) {
             return res.render(views + "job")
         },
         save(req, res) {
             //req.body = { name:"as", daily-hours:"3", 'total-hours':"3"}
             //req.body esta redirecionando os dados da pagina jobs para pag index
-            const lastId = job.data[job.data.length - 1]?.id || 1;
+            const lastId = Job.data[Job.data.length - 1]?.id || 1;
 
-            jobs.push({
+            Job.data.push({
                 id: lastId + 1,
                 name: req.body.name,
                 "daily-hours": req.body["daily-hours"],
@@ -99,7 +129,7 @@ const job = {
             const dayInMs = 1000 * 60 * 60 * 24;
             const dayDiff = Math.floor(timeDiffInMs / dayInMs);
 
-            return dayDiff
+            return dayDiff;
 
         },
 
@@ -107,13 +137,14 @@ const job = {
 }
 
 
-    //req,res
-    //render - renderizar
-routes.get('/', job.controllers.index);
-routes.get('/job',job.controllers.create);
-routes.post('/job', job.controllers.save);
+//req,res
+//render - renderizar
+routes.get('/', Job.controllers.index);
+routes.get('/job', Job.controllers.create);
+routes.post('/job', Job.controllers.save);
 routes.get('/jobedit', (req, res) => res.render(views + "job-edit"));
-routes.get('/profile',Profile.controllers.index); //enviando objeto
+routes.get('/profile', Profile.controllers.index); //enviando objeto
+routes.post('/profile', Profile.controllers.index); //enviando objeto
 
 
 module.exports = routes; 
