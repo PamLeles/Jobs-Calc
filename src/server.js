@@ -10,7 +10,7 @@ server.set('view engine', 'ejs');
 server.use(express.static("public"));
 
 //mudar a localização da pasta views
-server.set('views', path.join(_dirname, 'views'));
+server.set('views', path.join(__dirname, 'views'));
 
 //habilitado o uso do req.body
 server.use(express.urlencoded({extended: true}));

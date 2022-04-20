@@ -3,7 +3,7 @@ const Profile = require('../model/Profile');
 
 module.exports = {
     index(req, res) {
-        return res.render( "profile", { profile: Profile.get()});
+        return res.render("profile", { profile: Profile.get() });
     },
 
     update(req, res) {
@@ -13,25 +13,23 @@ module.exports = {
         //definir quantas semanas tem no ano
         const weeksPerYear = 52;
 
-        //remover as semanas de ferias do ano, p/ pegaar quantas semanas tem 1 mês
-        const weeksPerMonth = (weeksPerYear - data["vacation-per-day"]) / 12;
+        //remover as semanas de ferias do ano, p/ pegar quantas semanas tem 1 mês
+        const weeksPerMonth = (weeksPerYear - +data["vacation-per-year"]) / 12;
 
         //total de horas trabalhdas na semana
-        const weekTotalHours = data["hours-per-day"] * data["days-per-week"];
+        const weekTotalHours = +data["hours-per-day"] * +data["days-per-week"];
 
         // total de horas trabalhadas no mes
         const monthlyTotalHours = weekTotalHours * weeksPerMonth;
 
         // qual o valor da hora
-        data["value-hour"] = data["monthly-budget"] / monthlyTotalHours;
+        const valueHour = +data["monthly-budget"] / monthlyTotalHours;
 
         Profile.update({
             ...Profile.get(),
             ...req.body,
-            "value-hour": valueHourv
-
+            "value-hour": valueHour
         });
-       
 
         return res.redirect('/profile');
 

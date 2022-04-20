@@ -3,7 +3,9 @@ const jobUtils = require('../utils/jobUtils')
 const Profile = require('../model/Profile')
 
 module.exports = {
-     create(req, res) {
+
+
+    create(req, res) {
         return res.render("job")
     },
     save(req, res) {
@@ -64,12 +66,12 @@ module.exports = {
 
         res.redirect('/job/' + jobId);
     },
-    delete(req,res){
+    delete(req, res) {
         const jobId = req.params.id;
 
         Job.delete(jobId);
 
         return res.redirect('/');
-        
+
     }
 };
