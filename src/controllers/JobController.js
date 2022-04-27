@@ -14,13 +14,15 @@ module.exports = {
         //req.body esta redirecionando os dados da pagina jobs para pag index
         const lastId = jobs[jobs.length - 1]?.id || 0;
         // nome do ? optional chaining operator
-        jobs.push({
+        
+        Job.create({
             id: lastId + 1,
             name: req.body.name,
             "daily-hours": req.body["daily-hours"],
             "total-hours": req.body["total-hours"],
             created_at: Date.now()//atribuindo a data de hoje.
-        })
+        });
+        
         return res.redirect('/')
     },
     show(req, res) {
