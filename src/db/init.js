@@ -1,35 +1,36 @@
-const Database = require('./config');
+const Database = require('./config')
 
-Database() //abriu conexão
+const initdb = {
+    async init() {
 
-//criou tabela profile 
-Database.exec(`CREATE TABLE profile(
-    id INTERGER PRIMARY KEY AUTOINCREMENT,
+    const db = await Database()
+    //criando tabela profile 
+    await db.exec(`CREATE TABLE profile(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
     avatar TEXT,
-    mothly_budget INT,
+    monthly_budget INT,
     days_per_week INT,
     hour_per_day INT,
     vacation_per_year INT,
     value_hour INT
 )`);
-//criou tabela jobs
-Database.exec(`CREATE TABLE jobs(
-    id INTERGER PRIMARY KEY AUTOINCREMENT,
-    name TEXTm
+    //criando tabela jobs
+    await db.exec(`CREATE TABLE jobs(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
     daily_hours INT,
     total_hours INT,
-    created_at DATETIME,
+    created_at DATETIME
 )`);
-//inserindo dados na tabela profile
-Database.run(` INSERT INTO profile (
+    //inserindo dados na tabela profile
+    await db.run(` INSERT INTO profile (
     name,
     avatar,
     monthly_budget, 
     days_per_week,
     hour_per_day,
-    vacation_per_year,
-    value_hour
+    vacation_per_year
     ) VALUES(
         "Pâmela",
         "https://avatars.githubusercontent.com/u/98628912?v=4",
@@ -39,11 +40,11 @@ Database.run(` INSERT INTO profile (
         4
     );`);
 
-Database.run(`INSERT INTO jobs(
+    await db.run(`INSERT INTO jobs(
     name,
     daily_hours,
     total_hours,
-    created_at,
+    created_at
 ) VALUES(
     "Pizzaria Guloso",
     2,
@@ -52,11 +53,11 @@ Database.run(`INSERT INTO jobs(
 
 );`)
 
-Database.run(` INSERT INTO jobs(
+    await db.run(` INSERT INTO jobs(
     name,
     daily_hours,
     total_hours,
-    created_at,
+    created_at
 ) VALUES(
     "OneTwo projects",
     3,
@@ -65,8 +66,11 @@ Database.run(` INSERT INTO jobs(
 
 );`)
 
-Database.close()
+        await db.close()
 
- // PRIMARY KEY => número identificador da informação 
+        // PRIMARY KEY => número identificador da informação 
+    }
+}
 
+initdb.init()
 

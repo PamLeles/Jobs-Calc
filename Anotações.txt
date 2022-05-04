@@ -9,3 +9,7 @@ route - rota para o servidor
 
 -module.exports = {} -> para exportar 
 MVC = Models(dados), views(o que vizualizamos no front-end) e controller(controle) -> modelo de organização
+
+quando temo um único item dentro da arrow function, não precisa envolver ela dentro da {}.
+**database:
+- async / await  
