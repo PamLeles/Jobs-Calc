@@ -39,7 +39,31 @@ O JobsCalc é uma aplicação de estimativa de cálculo para projetos freelancer
 
 ## 🔖 Layout
 
-Você pode visualizar o layout do projeto através [desse link](). 
+- Editar Projeto:
+<p> 
+  <img alt="Editar Jobs" src="https://github.com/PamLeles/Jobs-Calc/blob/main/public/assets/Edit-job.jpeg" width="100%">
+</p>
+
+- Adicionar Novo Job:
+<p> 
+  <img alt="Adicionando novo job" src="https://github.com/PamLeles/Jobs-Calc/blob/main/public/assets/Add-new-job.jpeg" width="100%">
+</p>
+
+- Deletar Job:
+<p> 
+  <img alt="Deletar job" src="https://github.com/PamLeles/Jobs-Calc/blob/main/public/assets/delete.jpeg" width="100%">
+</p>
+
+- Atualização da página, após deletar job:
+<p> 
+  <img alt="atualização página job" src="https://github.com/PamLeles/Jobs-Calc/blob/main/public/assets/delete-job.jpeg" width="100%">
+</p>
+
+- Editar Perfil:
+<p> 
+  <img alt="atualização Profile" src="https://github.com/PamLeles/Jobs-Calc/blob/main/public/assets/profile.jpeg" width="100%">
+</p>
+
 
 ## Licença
 
